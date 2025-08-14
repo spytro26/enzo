@@ -47,15 +47,15 @@ export interface RoomData {
   personsWorkingTime: number;
   otherHeatSources: number;
   otherHeatSourcesWorkingTime: number;
-  // New fields for improved calculations
-  doorOpenings?: number; // Number of door openings per day
-  doorSize?: number; // Door area in m²
+  // Enhanced fields for improved calculations - FIXED TYPES
+  doorOpenings: number; // Number of door openings per day
+  doorSize: number; // Door area in m²
   roomUsageType?: 'storage' | 'processing' | 'loading'; // Usage type affects heat loads
   altitudeCorrection?: number; // Altitude in meters for air density correction
-  // Storage configuration fields
+  // Storage configuration fields - FIXED TYPES
   storageType?: 'palletized' | 'shelving' | 'bulk' | 'hanging';
-  aisleWidth?: number; // Aisle width in meters
-  ceilingClearance?: number; // Required clearance from ceiling in meters
+  aisleWidth: number; // Aisle width in user units
+  ceilingClearance: number; // Required clearance from ceiling in user units
 }
 
 export interface CalculationResult {

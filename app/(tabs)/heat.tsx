@@ -29,7 +29,7 @@ export default function HeatScreen() {
 
   return (
     <LinearGradient
-      colors={['#1e3a8a', '#3b82f6']}
+      colors={['#059669', '#10b981']}
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />
@@ -51,7 +51,7 @@ export default function HeatScreen() {
         <View style={styles.row}>
           <View style={styles.halfWidth}>
             <InputField
-              label="Door openings per day"
+              label="Door opening/day"
               value={(roomData.doorOpenings || 20).toString()}
               onChangeText={(text) => handleNumericInput('doorOpenings', text)}
               placeholder="20"
@@ -192,9 +192,12 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    alignItems: 'flex-start',
+    marginBottom: 12,
+    gap: 12,
   },
   halfWidth: {
-    width: '48%',
+    flex: 1,
+    minWidth: 0,
   },
 });

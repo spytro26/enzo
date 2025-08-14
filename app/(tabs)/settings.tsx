@@ -51,7 +51,7 @@ export default function SettingsScreen() {
 
   return (
     <LinearGradient
-      colors={['#1e3a8a', '#3b82f6']}
+      colors={['#059669', '#10b981']}
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />

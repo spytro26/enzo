@@ -18,7 +18,7 @@ export default function CalculateScreen() {
 
   return (
     <LinearGradient
-      colors={['#1e3a8a', '#3b82f6']}
+      colors={['#059669', '#10b981']}
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />
@@ -33,69 +33,76 @@ export default function CalculateScreen() {
           <Text style={styles.cardTitle}>Calculation Results</Text>
           
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Transmission losses</Text>
-            <Text style={styles.resultValue}>{results.transmissionLosses.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>🌡️</Text>
+              <Text style={styles.resultLabel}>Transmission losses</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.transmissionLosses.toFixed(0)} W</Text>
           </View>
 
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Ventilation losses</Text>
-            <Text style={styles.resultValue}>{results.ventilationLosses.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>💨</Text>
+              <Text style={styles.resultLabel}>Ventilation losses</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.ventilationLosses.toFixed(0)} W</Text>
           </View>
 
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Door opening losses</Text>
-            <Text style={styles.resultValue}>{results.doorOpeningLosses.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>🚪</Text>
+              <Text style={styles.resultLabel}>Door opening losses</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.doorOpeningLosses.toFixed(0)} W</Text>
           </View>
 
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Other heat sources</Text>
-            <Text style={styles.resultValue}>{results.otherHeatSources.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>⚡</Text>
+              <Text style={styles.resultLabel}>Other heat sources</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.otherHeatSources.toFixed(0)} W</Text>
           </View>
 
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Cooling down/longer respiration</Text>
-            <Text style={styles.resultValue}>{results.coolingDown.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>❄️</Text>
+              <Text style={styles.resultLabel}>Cooling down/longer respiration</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.coolingDown.toFixed(0)} W</Text>
           </View>
 
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Respiration</Text>
-            <Text style={styles.resultValue}>{results.respirationHeat.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>🫁</Text>
+              <Text style={styles.resultLabel}>Respiration</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.respirationHeat.toFixed(0)} W</Text>
           </View>
 
           <View style={[styles.resultRow, styles.subtotalRow]}>
-            <Text style={styles.subtotalLabel}>Subtotal</Text>
-            <Text style={styles.subtotalValue}>{results.subtotal.toFixed(2)} W</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.subtotalIcon}>📊</Text>
+              <Text style={styles.subtotalLabel}>Subtotal</Text>
+            </View>
+            <Text style={styles.subtotalValue}>{results.subtotal.toFixed(0)} W</Text>
           </View>
 
           <View style={[styles.resultRow, styles.totalRow]}>
-            <Text style={styles.totalLabel}>Required capacity</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.totalIcon}>🔥</Text>
+              <Text style={styles.totalLabel}>Req. capacity</Text>
+            </View>
             <Text style={styles.totalValue}>{formatPower(results.requiredCapacity * 1000)}</Text>
           </View>
 
           <View style={styles.resultRow}>
-            <Text style={styles.resultLabel}>Total specific capacity</Text>
-            <Text style={styles.resultValue}>{results.totalSpecificCapacity.toFixed(2)} W/m²</Text>
+            <View style={styles.resultLabelContainer}>
+              <Text style={styles.resultIcon}>📈</Text>
+              <Text style={styles.resultLabel}>Total specific capacity</Text>
+            </View>
+            <Text style={styles.resultValue}>{results.totalSpecificCapacity.toFixed(1)} W/m³</Text>
           </View>
-        </View>
-
-        <View style={styles.summaryCard}>
-          <Text style={styles.summaryTitle}>Calculation Summary</Text>
-          <Text style={styles.summaryText}>
-            🏠 Total cooling capacity required: {formatPower(results.requiredCapacity * 1000)}
-          </Text>
-          <Text style={styles.summaryText}>
-            📊 Specific capacity: {results.totalSpecificCapacity.toFixed(2)} W/m²
-          </Text>
-          <Text style={styles.summaryText}>
-            🔧 Recommended: Consider {Math.ceil(results.requiredCapacity * 1.1)} kW equipment
-          </Text>
-          
-          <Text style={styles.calculationNote}>
-            ℹ️ This calculation includes: thermal transmission, ventilation, door openings, 
-            product cooling, respiration heat (for fresh products), equipment loads, 
-            lighting, personnel heat, defrost cycles (for frozen applications), 
-            and appropriate safety factors.
-          </Text>
         </View>
       </ScrollView>
     </LinearGradient>
@@ -154,53 +161,88 @@ const styles = StyleSheet.create({
   resultRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 8,
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 4,
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    marginVertical: 2,
+  },
+  resultLabelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+    marginRight: 12,
+  },
+  resultIcon: {
+    fontSize: 18,
+    marginRight: 10,
+    width: 22,
   },
   resultLabel: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#E5E7EB',
-    flex: 1,
-  },
-  resultValue: {
-    fontSize: 14,
-    color: '#FFFFFF',
     fontWeight: '500',
   },
+  resultValue: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontWeight: '600',
+    textAlign: 'right',
+  },
   subtotalRow: {
-    marginTop: 8,
+    marginTop: 12,
     borderTopWidth: 2,
     borderTopColor: 'rgba(255, 255, 255, 0.3)',
-    paddingTop: 12,
+    paddingTop: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: 8,
+    marginHorizontal: -4,
+    paddingHorizontal: 8,
+  },
+  subtotalIcon: {
+    fontSize: 20,
+    marginRight: 10,
+    width: 22,
   },
   subtotalLabel: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#FFFFFF',
     fontWeight: '600',
-    flex: 1,
   },
   subtotalValue: {
-    fontSize: 16,
+    fontSize: 18,
     color: '#FFFFFF',
-    fontWeight: '600',
+    fontWeight: '700',
+    textAlign: 'right',
   },
   totalRow: {
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 10,
     paddingHorizontal: 12,
-    marginTop: 8,
+    marginTop: 12,
+    marginHorizontal: -4,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+  },
+  totalIcon: {
+    fontSize: 22,
+    marginRight: 10,
+    width: 24,
   },
   totalLabel: {
-    fontSize: 16,
+    fontSize: 20,
     color: '#FFFFFF',
     fontWeight: '700',
-    flex: 1,
   },
   totalValue: {
-    fontSize: 16,
+    fontSize: 20,
     color: '#FFFFFF',
-    fontWeight: '700',
+    fontWeight: '800',
+    textAlign: 'right',
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   summaryCard: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',

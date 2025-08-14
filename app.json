@@ -29,6 +29,9 @@
       "eas": {
         "projectId": "47f0cb0b-702b-4286-a8d6-bd7fac9362ea"
       }
+    },
+    "android": {
+      "package": "com.spytro26.enzocoolcalc"
     }
   }
 }

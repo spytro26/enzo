@@ -29,7 +29,7 @@ export default function GeneralScreen() {
 
   return (
     <LinearGradient
-      colors={['#1e3a8a', '#3b82f6']}
+      colors={['#059669', '#10b981']}
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />
@@ -65,7 +65,7 @@ export default function GeneralScreen() {
         />
 
         <InputField
-          label="Running time installing"
+          label="Running time installation"
           value={roomData.runningTime.toString()}
           onChangeText={(text) => handleNumericInput('runningTime', text)}
           unit="hours"

@@ -26,41 +26,17 @@ export default function ProductScreen() {
   const tempUnit = unitSettings.temperature === 'celsius' ? '°C' : 
                    unitSettings.temperature === 'fahrenheit' ? '°F' : 'K';
 
-  // Group products by category for better organization
-  const categorizedProducts = products.reduce((acc, product) => {
-    const category = product.category;
-    if (!acc[category]) {
-      acc[category] = [];
-    }
-    acc[category].push({
+  // Create simple product options list without categories
+  const productOptions = products
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map(product => ({
       label: product.name,
       value: product.id
-    });
-    return acc;
-  }, {} as Record<string, Array<{label: string, value: string}>>);
-
-  // Create flat options list with category headers
-  const productOptions: Array<{label: string, value: string, isHeader?: boolean}> = [];
-  
-  Object.keys(categorizedProducts).sort().forEach(category => {
-    // Add category header
-    productOptions.push({
-      label: `── ${category.toUpperCase()} ──`,
-      value: '',
-      isHeader: true
-    });
-    
-    // Add products in this category
-    categorizedProducts[category]
-      .sort((a, b) => a.label.localeCompare(b.label))
-      .forEach(product => {
-        productOptions.push(product);
-      });
-  });
+    }));
 
   return (
     <LinearGradient
-      colors={['#1e3a8a', '#3b82f6']}
+      colors={['#059669', '#10b981']}
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />
@@ -82,14 +58,6 @@ export default function ProductScreen() {
         {selectedProduct && (
           <View style={styles.productInfo}>
             <Text style={styles.productInfoTitle}>Product Information</Text>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Category</Text>
-              <Text style={styles.infoValue}>{selectedProduct.category}</Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Storage method</Text>
-              <Text style={styles.infoValue}>{selectedProduct.storageMethod}</Text>
-            </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>Max. allowed storage</Text>
               <Text style={styles.infoValue}>
@@ -122,18 +90,6 @@ export default function ProductScreen() {
                 </Text>
               </View>
             )}
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Max stacking height</Text>
-              <Text style={styles.infoValue}>
-                {selectedProduct.stackingHeight} m
-              </Text>
-            </View>
-            <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>Packaging efficiency</Text>
-              <Text style={styles.infoValue}>
-                {((selectedProduct.packagingFactor || 0.65) * 100).toFixed(0)}%
-              </Text>
-            </View>
           </View>
         )}
 
